@@ -1,0 +1,98 @@
+.navbar {
+    position: sticky !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    height: 80px !important;
+    padding: 12px 3% !important;
+    background: #122e4b !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 60px !important; /* ← زيد هذا */
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1) !important;
+    z-index: 9999 !important;
+    box-sizing: border-box !important;
+    flex-wrap: nowrap !important;
+}
+
+.logoBox {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-left: 10px;
+    flex-shrink: 0;
+     margin-right: 60px !important; /* ← زيد هذا */
+}
+
+.logoBox img {
+    height: 60px;
+    width: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    background: white;
+    padding: 4px;
+}
+
+.companyName {
+    color: white;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    white-space: nowrap;
+}
+
+.nav-menu {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    flex-shrink: 1;
+    gap: 50px; /* ← كبر هذا حسب ما يعجبك */
+    list-style: none;
+    align-items: center;
+    margin: 0 10px 0 auto !important;
+    padding: 0 !important;
+}
+
+.nav-menu a {
+    text-decoration: none !important;
+    color: white !important;
+    font-size: 16px;
+    font-weight: 500;
+    padding: 6px 4px;
+    position: relative;
+    transition: 0.3s;
+    white-space: nowrap;
+}
+
+.nav-menu a::after {
+    content: "";
+    position: absolute;
+    width: 0%;
+    height: 2px;
+    background: white;
+    bottom: -5px;
+    left: 0;
+    transition: 0.3s;
+}
+
+.nav-menu a:hover::after {
+    width: 100%;
+}
+
+.nav-menu .login a {
+    background: white !important;
+    color: #1976d2 !important;
+    padding: 7px 16px !important;
+    border-radius: 20px !important;
+    font-weight: 600;
+    text-decoration: none !important;
+    transition: 0.3s;
+}
+
+.nav-menu .login a:hover {
+    background: #f2f2f2 !important;
+}
+
+body {
+    padding-top: 80px;
+}

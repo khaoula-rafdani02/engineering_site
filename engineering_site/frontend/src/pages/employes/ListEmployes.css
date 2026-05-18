@@ -1,0 +1,146 @@
+/* ListEmployes.css */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+:root {
+  --bg-body: #f8fafc;
+  --navy: #0f172a;
+  --blue-p: #3b82f6;
+  --border: #e2e8f0;
+  --text-mid: #64748b;
+  --white: #ffffff;
+}
+
+.ms-root {
+  background-color: var(--bg-body);
+  min-height: 100vh;
+  padding: 2.5rem;
+  font-family: 'Inter', sans-serif;
+}
+
+.ms-page {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Header Section */
+.ms-page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 2rem;
+}
+
+.ms-breadcrumb { font-size: 0.8rem; color: var(--text-mid); margin-bottom: 5px; }
+.ms-page-title { font-size: 1.8rem; font-weight: 800; color: var(--navy); margin: 0; }
+.ms-page-subtitle { color: var(--text-mid); font-size: 0.9rem; }
+
+.ms-btn-new {
+  background: var(--navy);
+  color: white;
+  padding: 0.75rem 1.4rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.15);
+}
+
+/* --- BARRE DE RECHERCHE STYLE PHOTO --- */
+.ms-search-wrapper {
+  margin-bottom: 1.5rem;
+}
+
+.ms-search-input {
+  width: 100%;
+  padding: 14px 20px;
+  border: 1px solid #e2e8f0; /* Même border que f'tswira */
+  border-radius: 10px; /* Rounded kima la photo */
+  background: #ffffff;
+  color: #64748b;
+  font-size: 0.95rem;
+  outline: none;
+  transition: all 0.2s;
+}
+
+.ms-search-input:focus {
+  border-color: #cbd5e1;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+}
+
+/* Table Design */
+.ms-table-wrap {
+  background: white;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  overflow: hidden;
+  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+}
+
+.ms-table-element {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.ms-table-element thead {
+  background: #1e293b; /* Dark head kima la photo */
+}
+
+.ms-table-element th {
+  padding: 1rem 1.5rem;
+  color: #94a3b8;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  text-align: left;
+  font-weight: 700;
+}
+
+.ms-table-element td {
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.9rem;
+  color: var(--navy);
+}
+
+.ms-table-element tr:hover { background: #f8fafc; }
+
+/* Badges & Text */
+.ms-role-badge {
+  display: inline-block;
+  background: #eff6ff;
+  color: #3b82f6;
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.ms-sub-text { font-size: 0.8rem; color: var(--text-mid); }
+.ms-font-bold { font-weight: 700; }
+.ms-email-cell { color: var(--blue-p); }
+.ms-text-light { color: var(--text-mid); }
+.ms-id-tag { color: #cbd5e1; font-weight: 600; }
+
+/* Actions */
+.ms-cell-actions { display: flex; gap: 8px; justify-content: flex-end; }
+
+.ms-btn-edit {
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: white;
+  color: var(--navy);
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.ms-btn-edit.red {
+  color: #ef4444;
+  background: #fef2f2;
+  border-color: #fee2e2;
+}
+
+.ms-empty { text-align: center; padding: 3rem !important; color: var(--text-mid); }
+.ms-count-footer { margin-top: 15px; font-size: 0.85rem; color: var(--text-mid); }

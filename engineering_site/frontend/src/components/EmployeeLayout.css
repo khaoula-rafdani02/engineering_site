@@ -1,0 +1,14 @@
+.emp-layout {
+  display: flex;
+  min-height: 100vh;
+  background: #F4F5F7;
+  gap: 0 !important; 
+}
+
+.emp-layout-main {
+  flex: 1;
+  overflow-y: auto;
+  min-width: 0;
+  padding: 0 !important; 
+  margin: 0 !important;
+}

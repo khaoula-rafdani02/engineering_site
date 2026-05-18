@@ -1,0 +1,242 @@
+/* ==================== GLOBAL ==================== */
+.apropos-page {
+  font-family: 'Arial', sans-serif;
+  color: #0e2f4f;
+  background: #f5f7fb;
+  padding: 60px 10%;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+/* ==================== HEADER ==================== */
+.apropos-header {
+  text-align: center;
+  margin-bottom: 60px;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 1s forwards;
+}
+
+.apropos-header h1 {
+  font-size: 44px;
+  color: #122e4b;
+  margin-bottom: 15px;
+  line-height: 1.2;
+}
+
+.apropos-header p {
+  font-size: 18px;
+  line-height: 1.7;
+  color: #33475b;
+}
+
+.apropos-header::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 4px;
+  background: #122e4b;
+  margin: 20px auto 0 auto;
+  border-radius: 2px;
+}
+
+/* ==================== CARDS ==================== */
+.card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 35px 30px;
+  margin-bottom: 50px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+  transition: transform 0.4s, box-shadow 0.4s;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 1s forwards;
+  border-top: 4px solid #122e4b;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.12);
+}
+
+.card h2 {
+  color: #122e4b;
+  font-size: 28px;
+  margin-bottom: 8px;
+}
+
+.card h2::after {
+  content: "";
+  display: block;
+  width: 45px;
+  height: 3px;
+  background: #122e4b;
+  opacity: 0.3;
+  margin-top: 8px;
+  border-radius: 5px;
+}
+
+.card p, .card ul {
+  font-size: 16px;
+  line-height: 1.8;
+  color: #33475b;
+  margin-top: 15px;
+}
+
+/* ==================== LISTES ==================== */
+.card ul {
+  padding-left: 25px;
+  list-style: none;
+}
+
+.card ul li {
+  margin-bottom: 12px;
+  position: relative;
+  padding-left: 20px;
+}
+
+.card ul li::before {
+  content: "✔";
+  position: absolute;
+  left: 0;
+  color: #122e4b;
+  font-weight: bold;
+}
+
+/* ==================== IMAGES ==================== */
+.apropos-images {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: nowrap;
+  margin-top: 25px;
+  overflow-x: auto;
+  padding-bottom: 10px;
+}
+
+.apropos-images img {
+  width: 400px;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 15px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+  transition: transform 0.4s, box-shadow 0.4s;
+  border-bottom: 4px solid #122e4b;
+}
+
+.apropos-images img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+}
+
+/* ==================== CHIFFRES ==================== */
+.chiffres-section {
+  background: linear-gradient(135deg, #0e2236, #122e4b);
+  padding: 60px 8%;
+  margin-bottom: 50px;
+  border-radius: 16px;
+  position: relative;
+  overflow: hidden;
+}
+
+.chiffres-section::before {
+  content: "";
+  position: absolute;
+  top: -60px;
+  right: -60px;
+  width: 200px;
+  height: 200px;
+  background: rgba(255,255,255,0.04);
+  border-radius: 50%;
+}
+
+.chiffres-section::after {
+  content: "";
+  position: absolute;
+  bottom: -80px;
+  left: -40px;
+  width: 250px;
+  height: 250px;
+  background: rgba(255,255,255,0.03);
+  border-radius: 50%;
+}
+
+.chiffres-grid {
+  display: flex;
+  justify-content: center;
+  gap: 0;
+  flex-wrap: wrap;
+  position: relative;
+  z-index: 1;
+}
+
+.chiffre-card {
+  text-align: center;
+  color: white;
+  padding: 25px 40px;
+  border-right: 1px solid rgba(255,255,255,0.12);
+  flex: 1;
+  min-width: 150px;
+  transition: transform 0.3s;
+}
+
+.chiffre-card:hover {
+  transform: translateY(-5px);
+}
+
+.chiffre-card:last-child {
+  border-right: none;
+}
+
+.chiffre-icon {
+  font-size: 38px;
+  margin-bottom: 12px;
+  display: block;
+}
+
+.chiffre-nombre {
+  font-size: 46px;
+  font-weight: 700;
+  color: white;
+  line-height: 1;
+  margin-bottom: 10px;
+  letter-spacing: -1px;
+}
+
+.chiffre-label {
+  font-size: 13px;
+  opacity: 0.75;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+}
+
+/* ==================== ANIMATIONS ==================== */
+@keyframes fadeInUp {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* ==================== RESPONSIVE ==================== */
+@media (max-width: 1024px) {
+  .apropos-page { padding: 50px 8%; }
+  .card h2 { font-size: 26px; }
+  .apropos-images img { width: 350px; height: 260px; }
+}
+
+@media (max-width: 768px) {
+  .apropos-page { padding: 40px 5%; }
+  .apropos-header h1 { font-size: 34px; }
+  .apropos-header p { font-size: 16px; }
+  .card h2 { font-size: 24px; }
+  .apropos-images { gap: 20px; }
+  .apropos-images img { width: 300px; height: 220px; }
+  .chiffres-grid { gap: 10px; }
+  .chiffre-card {
+    border-right: none;
+    border-bottom: 1px solid rgba(255,255,255,0.12);
+    padding: 20px;
+    min-width: 45%;
+  }
+  .chiffre-card:last-child { border-bottom: none; }
+  .chiffre-nombre { font-size: 36px; }
+}

@@ -1,0 +1,133 @@
+/* Dashboard.css - Full Fix */
+
+.dashboard {
+  padding: 2rem;
+  background-color: #f8fafc;
+  min-height: 100vh;
+  font-family: sans-serif;
+}
+
+.dash-section-label {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #1e293b;
+  margin-bottom: 2rem;
+  border-left: 5px solid #3b82f6;
+  padding-left: 15px;
+}
+
+/* Stats Cards Area */
+.dash-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.dash-card {
+  background: #ffffff;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  position: relative;
+  border: 1px solid #eef2f6;
+}
+
+.dash-card-label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #64748b;
+  margin-bottom: 8px;
+}
+
+.dash-card-num {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: #1e293b;
+}
+
+.dash-card-bg-icon {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  font-size: 3rem;
+  opacity: 0.1;
+}
+
+/* Card Accents */
+.dash-card.c1 { border-top: 4px solid #10b981; }
+.dash-card.c2 { border-top: 4px solid #3b82f6; }
+.dash-card.c3 { border-top: 4px solid #8b5cf6; }
+.dash-card.c4 { border-top: 4px solid #f59e0b; }
+.dash-card.c5 { border-top: 4px solid #ef4444; }
+.dash-card.c6 { border-top: 4px solid #06b6d4; }
+
+/* Grid for Chart and Timeline */
+.dash-grid-main {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 1.5rem;
+}
+
+.dash-chart-section, .dash-activity-section {
+  background: #ffffff;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.dash-table-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 1rem;
+}
+
+/* Timeline Styling */
+.timeline {
+  margin-top: 1.5rem;
+}
+
+.timeline-item {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.timeline-dot {
+  min-width: 12px;
+  height: 12px;
+  background: #cbd5e1;
+  border-radius: 50%;
+  margin-top: 5px;
+}
+
+/* Timeline Colors */
+.timeline-dot.en_cours { background: #3b82f6; }
+.timeline-dot.termine { background: #10b981; }
+.timeline-dot.en_retard { background: #ef4444; }
+.timeline-dot.suspendu { background: #94a3b8; }
+
+.timeline-text {
+  font-size: 0.9rem;
+  margin: 0;
+  color: #334155;
+}
+
+.timeline-time {
+  font-size: 0.8rem;
+  color: #94a3b8;
+}
+
+/* Responsive Fix */
+@media (max-width: 1000px) {
+  .dash-grid-main {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Chart Cleaner */
+.recharts-wrapper {
+  outline: none !important;
+}

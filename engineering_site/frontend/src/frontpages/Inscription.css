@@ -1,0 +1,167 @@
+/* ================= GLOBAL ================= */
+/* ================= GLOBAL ================= */
+.inscription {
+  width: 100%;
+  font-family: Arial, sans-serif;
+  color: #0e2f4f;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  box-sizing: border-box;
+  
+  /* L-background l-jdid li khtariyti */
+  background: linear-gradient(135deg, #e8f4f8, #ddeef5, #e4f0e8, #eef0f8, #f0ece8);
+  background-attachment: fixed; /* Bach l-alwan maytchewtouch ila kano chi inputs khtarin */
+}
+/* ================= CARD ================= */
+.inscription-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 500px;
+  overflow: hidden;
+}
+
+.inscription-header {
+  background: #122e4b;
+  color: white;
+  text-align: center;
+  padding: 30px 20px;
+}
+
+.inscription-header h2 {
+  font-size: 26px;
+  margin: 0 0 8px 0;
+}
+
+.inscription-header p {
+  font-size: 14px;
+  margin: 0;
+  opacity: 0.85;
+}
+
+/* ================= FORM ================= */
+.inscription-body {
+  padding: 35px 40px;
+}
+
+.inscription-group {
+  margin-bottom: 20px;
+}
+
+.inscription-group label {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #122e4b;
+}
+
+.inscription-group input {
+  width: 100%;
+  padding: 11px 15px;
+  border: 1.5px solid #ccd6e0;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #0e2f4f;
+  outline: none;
+  transition: border-color 0.3s;
+  box-sizing: border-box;
+}
+
+.inscription-group input:focus {
+  border-color: #122e4b;
+  box-shadow: 0 0 0 3px rgba(18, 46, 75, 0.1);
+}
+
+.inscription-group input.is-invalid {
+  border-color: #dc3545;
+}
+
+.invalid-msg {
+  color: #dc3545;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+/* ================= ALERT ================= */
+.inscription-success {
+  background: #e8f5e9;
+  border: 1px solid #a5d6a7;
+  color: #2e7d32;
+  padding: 12px 15px;
+  border-radius: 8px;
+  font-size: 14px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* ================= BUTTONS ================= */
+.inscription-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.voir-plus-btn {
+  background: #122e4b;
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 50px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 500;
+  transition: 0.3s;
+  flex: 1;
+}
+
+.voir-plus-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.voir-plus-btn:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn-annuler {
+  background: white;
+  color: #122e4b;
+  border: 2px solid #122e4b;
+  padding: 12px 30px;
+  border-radius: 50px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 500;
+  transition: 0.3s;
+  flex: 1;
+}
+
+.btn-annuler:hover {
+  background: #f0f4f8;
+  transform: scale(1.05);
+}
+
+/* ================= LINK ================= */
+.inscription-login {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 13px;
+  color: #555;
+}
+
+.inscription-login a {
+  color: #122e4b;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.inscription-login a:hover {
+  text-decoration: underline;
+}

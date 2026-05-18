@@ -1,0 +1,305 @@
+/* ClientDashboard.css */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.cd-root {
+  min-height: 100vh;
+  background: #f4f6f9;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* TOPBAR */
+.cd-topbar {
+  background: #1a2e4a;
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 2rem;
+  height: 60px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.cd-topbar-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.cd-brand {
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: #fff;
+}
+
+.cd-brand span {
+  display: block;
+  font-size: 10px;
+  font-weight: 400;
+  color: #a0b4c8;
+  letter-spacing: 1px;
+}
+
+.cd-topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.cd-user-chip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cd-user-av {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: #f5a623;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.cd-user-name {
+  font-size: 14px;
+  color: #fff;
+}
+
+.cd-btn-logout {
+  background: transparent;
+  border: 1px solid #a0b4c8;
+  color: #a0b4c8;
+  padding: 5px 14px;
+  border-radius: 6px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.cd-btn-logout:hover {
+  background: #fff;
+  color: #1a2e4a;
+}
+
+/* PAGE */
+.cd-page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+}
+
+/* HEADER */
+.cd-page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1.5rem;
+}
+
+.cd-breadcrumb {
+  font-size: 12px;
+  color: #8a99a8;
+  margin-bottom: 4px;
+}
+
+.cd-page-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1a2e4a;
+}
+
+.cd-page-subtitle {
+  font-size: 13px;
+  color: #8a99a8;
+  margin-top: 4px;
+}
+
+/* STATS */
+.cd-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.cd-stat-card {
+  background: #fff;
+  border-radius: 10px;
+  padding: 1.2rem 1.4rem;
+  border-left: 4px solid #ccc;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.cd-stat-card.stat-total   { border-color: #3b82f6; }
+.cd-stat-card.stat-encours { border-color: #f59e0b; }
+.cd-stat-card.stat-termine { border-color: #10b981; }
+.cd-stat-card.stat-rdv     { border-color: #8b5cf6; }
+
+.cd-stat-val {
+  font-size: 28px;
+  font-weight: 700;
+  color: #1a2e4a;
+  display: block;
+}
+
+.cd-stat-label {
+  font-size: 12px;
+  color: #8a99a8;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: block;
+}
+
+/* TABS */
+.cd-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 1.2rem;
+}
+
+.cd-tab-btn {
+  font-size: 13px;
+  padding: 6px 18px;
+  border-radius: 20px;
+  border: 1px solid #dde3ea;
+  background: transparent;
+  color: #8a99a8;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.cd-tab-btn.active {
+  background: #1a2e4a;
+  color: #fff;
+  border-color: #1a2e4a;
+}
+
+.cd-tab-btn:hover:not(.active) {
+  background: #f0f4f8;
+  color: #1a2e4a;
+}
+
+/* CARDS */
+.cd-card {
+  background: #fff;
+  border: 1px solid #e8edf2;
+  border-radius: 10px;
+  padding: 1rem 1.2rem;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+}
+
+.cd-card-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.cd-card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.cd-card-title {
+  font-weight: 600;
+  font-size: 14px;
+  color: #1a2e4a;
+}
+
+.cd-card-meta {
+  font-size: 12px;
+  color: #8a99a8;
+  margin-top: 3px;
+}
+
+/* PROGRESS */
+.cd-progress-bar {
+  height: 6px;
+  background: #e8edf2;
+  border-radius: 4px;
+  overflow: hidden;
+  margin: 8px 0;
+}
+
+.cd-progress-fill {
+  height: 100%;
+  background: #3b82f6;
+  border-radius: 4px;
+  transition: width 0.4s;
+}
+
+/* BADGES */
+.cd-badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.cd-badge-encours  { background: #dbeafe; color: #1d4ed8; }
+.cd-badge-termine  { background: #d1fae5; color: #065f46; }
+.cd-badge-attente  { background: #fef3c7; color: #92400e; }
+.cd-badge-annule   { background: #fee2e2; color: #991b1b; }
+.cd-badge-confirme { background: #d1fae5; color: #065f46; }
+.cd-badge-suspendu { background: #fee2e2; color: #991b1b; }
+
+/* RDV DATE BOX */
+.cd-date-box {
+  background: #eef2ff;
+  border-radius: 8px;
+  padding: 8px 10px;
+  text-align: center;
+  min-width: 52px;
+  flex-shrink: 0;
+}
+
+.cd-date-day {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1a2e4a;
+  line-height: 1;
+}
+
+.cd-date-month {
+  font-size: 11px;
+  color: #3b82f6;
+  margin-top: 2px;
+}
+
+/* EMPTY */
+.cd-empty {
+  text-align: center;
+  padding: 2rem;
+  background: #f8fafc;
+  border-radius: 10px;
+  color: #8a99a8;
+  font-size: 13px;
+}
+
+/* RDV EXPIRED / UPCOMING */
+.cd-rdv-expired {
+  opacity: 0.5;
+  border-left: 3px solid #e8edf2 !important;
+}
+
+.cd-rdv-upcoming {
+  border-left: 3px solid #3b82f6;
+}

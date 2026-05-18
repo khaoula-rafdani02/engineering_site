@@ -1,0 +1,158 @@
+@import url('https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.back-layout {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  font-family: 'Public Sans', sans-serif;
+  overflow: hidden;
+}
+
+/* --- SIDEBAR --- */
+.sidebar {
+  width: 260px;
+   background: linear-gradient(180deg, #0d1728 0%, #1a2a4a 100%);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  transition: 0.3s ease;
+  flex-shrink: 0;
+}
+
+.sidebar.closed { width: 0; overflow: hidden; }
+
+.sidebar-header {
+  padding: 25px 20px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.avatar-em {
+  width: 45px;
+  height: 45px;
+  background-color: #f0a500; /* Lon orange dial EM */
+  color: #000;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.sidebar-user-info h3 { font-size: 16px; margin: 0; }
+.sidebar-user-info p { font-size: 12px; color: #b4b7bd; }
+
+.menu-nav {
+  flex: 1;
+  padding: 20px 12px;
+}
+
+.menu-title {
+  font-size: 11px;
+  color: #676d7d;
+  letter-spacing: 1.5px;
+  margin-left: 15px;
+  margin-bottom: 10px;
+  display: block;
+}
+
+.link {
+  display: flex;
+  align-items: center;
+  padding: 12px 15px;
+  color: #d0d2d6;
+  text-decoration: none;
+  font-size: 14px;
+  border-radius: 6px;
+  margin-bottom: 4px;
+  transition: 0.2s;
+}
+
+.link:hover { background: rgba(255, 255, 255, 0.05); color: #fff; }
+
+.link.active {
+   background: linear-gradient(135deg, #2a3f6f, #1a2a4a);
+  color: #fff;
+  box-shadow: 0 4px 10px 0 rgba(115, 103, 240, 0.3);
+}
+
+.logout-button {
+  background: transparent;
+  border: none;
+  width: 100%;
+  padding: 12px 15px;
+  color: #d0d2d6;
+  text-align: left;
+  cursor: pointer;
+  font-size: 14px;
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+}
+
+
+.main-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.top-header {
+  height: 62px;
+  background: linear-gradient(180deg, #0d1728 0%, #1a2a4a 100%);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 25px;
+  color: white;
+}
+
+.header-left { display: flex; align-items: center; gap: 20px; }
+
+.brand-logo-area { display: flex; align-items: center; gap: 10px; }
+.brand-logo-area img { height: 35px; border-radius: 4px; }
+.brand-text { display: flex; flex-direction: column; }
+.main-name { font-weight: 700; font-size: 15px; }
+.sub-name { font-size: 9px; color: #f0a500; letter-spacing: 0.5px; }
+
+.burger-menu { background: transparent; border: none; color: white; font-size: 20px; cursor: pointer; }
+
+.user-pill {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 5px 15px;
+  border-radius: 25px;
+}
+
+.user-name { font-size: 13px; font-weight: 500; }
+
+.initial-dot {
+  width: 26px;
+  height: 26px;
+  background-color: #f0a500;
+  color: #000;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 11px;
+}
+
+.content-view {
+  flex: 1;
+  background-color: #f4f7fe;
+  padding: 25px;
+  overflow-y: auto;
+}

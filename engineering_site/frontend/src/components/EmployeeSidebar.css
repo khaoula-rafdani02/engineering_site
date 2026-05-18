@@ -1,0 +1,141 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Space+Grotesk:wght@500;600&display=swap');
+
+.emp-sidebar {
+  width: 220px;
+  min-height: 100vh;
+  background: linear-gradient(180deg, #0d1728 0%, #1a2a4a 100%);
+  border-right: 0.5px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  font-family: 'DM Sans', sans-serif;
+}
+
+
+.emp-sidebar-header {
+  padding: 20px 16px 16px;
+  border-bottom: 0.5px solid rgba(255, 255, 255, 0.1);
+}
+
+.emp-sidebar-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #f0a500, #fbbf24);
+  color: #0d1728;
+  font-weight: 700;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.emp-sidebar-name {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: #ffffff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.emp-sidebar-role {
+  font-size: 11px;
+  color: #8fa3c0;
+  margin-top: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ── Nav ── */
+.emp-sidebar-nav {
+  flex: 1;
+  padding: 16px 0;
+}
+
+.emp-sidebar-nav-label {
+  font-size: 10px;
+  font-weight: 700;
+  color: #8fa3c0;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 10px 16px 6px;
+}
+
+.emp-sidebar-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 16px;
+  margin: 2px 8px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #8fa3c0;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.emp-sidebar-nav-item:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+}
+
+.emp-sidebar-nav-item.active {
+  background: linear-gradient(135deg, #2a3f6f, #1a2a4a);
+  color: #ffffff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.emp-sidebar-nav-icon {
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.emp-sidebar-nav-icon svg {
+  width: 16px;
+  height: 16px;
+}
+
+
+.emp-sidebar-footer {
+  padding: 16px;
+  border-top: 0.5px solid rgba(255, 255, 255, 0.1);
+}
+
+.emp-sidebar-date {
+  font-size: 11px;
+  color: #8fa3c0;
+  margin-bottom: 10px;
+}
+
+.emp-sidebar-logout {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 0.5px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  color: #8fa3c0;
+  cursor: pointer;
+  width: 100%;
+  transition: all 0.2s ease;
+}
+
+.emp-sidebar-logout:hover {
+  background: rgba(220, 38, 38, 0.15);
+  color: #ef4444;
+  border-color: rgba(239, 68, 68, 0.3);
+}

@@ -1,0 +1,157 @@
+/* ================= PAGE ================= */
+.projets-public {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  padding: 80px 10%;
+  background: linear-gradient(135deg, #f0f4f8 0%, #e8eef5 100%);
+  color: #333;
+}
+
+/* ================= TITLE ================= */
+.projets-public h1 {
+  text-align: center;
+  font-size: 44px;
+  color: #122e4b;
+  margin-bottom: 16px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  position: relative;
+}
+
+.projets-public h1::after {
+  content: '';
+  display: block;
+  width: 70px;
+  height: 4px;
+  background: #1a6bbf;
+  margin: 12px auto 0;
+  border-radius: 2px;
+}
+
+/* ================= INTRO ================= */
+.projets-public .intro {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto 60px auto;
+  font-size: 17px;
+  line-height: 1.8;
+  color: #666;
+}
+
+/* ================= LIST ================= */
+.projets-public .projets-list {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+}
+
+/* ================= CARD ================= */
+.projets-public .projet-card {
+  display: flex;
+  flex-direction: row;
+  gap: 0;
+  background: #fff;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 30px rgba(18, 46, 75, 0.1);
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+  align-items: stretch;
+}
+
+.projets-public .projet-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 45px rgba(18, 46, 75, 0.18);
+}
+
+/* Alternate: even cards image à droite */
+.projets-public .projet-card:nth-child(even) {
+  flex-direction: row-reverse;
+}
+
+/* ================= IMAGE ================= */
+.projets-public .projet-card img {
+  width: 42%;
+  object-fit: cover;
+  flex-shrink: 0;
+  display: block;
+  border-radius: 0;
+}
+
+/* ================= TEXT ================= */
+.projets-public .projet-text {
+  width: 58%;
+  padding: 40px 45px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-left: 5px solid #1a6bbf;
+}
+
+.projets-public .projet-card:nth-child(even) .projet-text {
+  border-left: none;
+  border-right: 5px solid #1a6bbf;
+}
+
+/* ================= PROJECT TITLE ================= */
+.projets-public .projet-text h2 {
+  color: #122e4b;
+  font-size: 1.9rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+/* ================= BULLET POINTS ================= */
+.projet-details {
+  list-style: none;
+  padding-left: 0;
+  color: #555;
+  line-height: 1.7;
+}
+
+.projet-details li {
+  margin-bottom: 12px;
+  padding-left: 24px;
+  position: relative;
+  font-size: 15px;
+}
+
+.projet-details li::before {
+  content: '✦';
+  position: absolute;
+  left: 0;
+  color: #1a6bbf;
+  font-size: 12px;
+  top: 3px;
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 900px) {
+  .projets-public {
+    padding: 60px 5%;
+  }
+
+  .projets-public .projet-card,
+  .projets-public .projet-card:nth-child(even) {
+    flex-direction: column;
+  }
+
+  .projets-public .projet-card img {
+    width: 100%;
+    max-height: 250px;
+  }
+
+  .projets-public .projet-text {
+    width: 100%;
+    padding: 28px 24px;
+    border-left: none;
+    border-top: 5px solid #1a6bbf;
+  }
+
+  .projets-public .projet-card:nth-child(even) .projet-text {
+    border-right: none;
+    border-top: 5px solid #1a6bbf;
+  }
+
+  .projets-public h1 {
+    font-size: 32px;
+  }
+}

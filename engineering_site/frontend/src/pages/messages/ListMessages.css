@@ -1,0 +1,85 @@
+/* ListMessages.css */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+  --bg-body: #f8fafc;
+  --navy: #1e293b;
+  --border: #e2e8f0;
+  --text-mid: #64748b;
+}
+
+.ms-root {
+  background-color: var(--bg-body);
+  min-height: 100vh;
+  padding: 2rem;
+  font-family: 'Inter', sans-serif;
+}
+
+.ms-page { max-width: 1300px; margin: 0 auto; }
+.ms-page-title { font-size: 1.8rem; font-weight: 800; color: #0f172a; margin: 0; }
+.ms-breadcrumb { font-size: 0.8rem; color: var(--text-mid); margin-bottom: 5px; }
+
+/* Barre de recherche (Exactement kima l'image) */
+.ms-search-wrapper { margin-bottom: 1.5rem; }
+.ms-search-input {
+  width: 100%;
+  padding: 14px 20px;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  background: white;
+  color: #64748b;
+  outline: none;
+}
+
+/* Tableau */
+.ms-table-wrap {
+  background: white;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  overflow: hidden;
+  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+}
+
+.ms-table-element { width: 100%; border-collapse: collapse; }
+.ms-table-element thead { background: #1e293b; }
+.ms-table-element th {
+  padding: 1rem 1.5rem;
+  color: #94a3b8;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  text-align: left;
+}
+
+.ms-table-element td {
+  padding: 1.2rem 1.5rem;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.9rem;
+  vertical-align: middle;
+}
+
+/* Statut Badges (Kima l'image) */
+.ms-badge {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.ms-badge-new { background: #fef2f2; color: #ef4444; border: 1px solid #fee2e2; } /* Rouge */
+.ms-badge-process { background: #fffbeb; color: #d97706; border: 1px solid #fef3c7; } /* Orange */
+.ms-badge-done { background: #f0fdf4; color: #22c55e; border: 1px solid #dcfce7; } /* Vert */
+
+/* Divers */
+.ms-font-bold { font-weight: 700; color: #0f172a; }
+.ms-email-sub { font-size: 0.8rem; color: var(--text-mid); }
+.ms-client-link { font-size: 0.75rem; color: #3b82f6; margin-top: 2px; }
+.ms-message-preview {
+  color: #475569;
+  max-width: 300px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.ms-date-cell { color: var(--text-mid); font-size: 0.85rem; }
+.ms-id-tag { color: #cbd5e1; font-weight: 600; }
