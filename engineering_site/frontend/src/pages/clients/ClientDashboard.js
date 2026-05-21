@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react";
 import "./ClientDashboard.css";
 import logo from "../../assets/logo.png";
+import { apiFetch } from "../../api";
+
 export default function ClientDashboard({ user, onLogout }) {
   const [projets, setProjets] = useState([]);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState("projets");
 
   useEffect(() => {
-    fetch(`http://127.0.0.1:8000/api/mes-projets-client/${user.id_client}`)
+    apiFetch(`mes-projets-client/${user.id_client}`)
       .then((res) => res.json())
       .then((data) => {
         setProjets(Array.isArray(data) ? data : []);
@@ -28,7 +30,6 @@ export default function ClientDashboard({ user, onLogout }) {
 
   const buildRdvs = () => {
     const list = [];
-
     const dateCreation = new Date(user.date_creation);
     dateCreation.setDate(dateCreation.getDate() + 1);
     const dateRdv1 = isNaN(dateCreation) ? "2026-05-01" : dateCreation.toISOString().split("T")[0];
@@ -47,7 +48,6 @@ export default function ClientDashboard({ user, onLogout }) {
       const info = rdvMessages[p.statut] ?? rdvMessages["en_attente"];
       const dateProjet = new Date(p.date_debut);
       const dateRdv = isNaN(dateProjet) ? "2026-05-10" : dateProjet.toISOString().split("T")[0];
-
       list.push({
         id: i + 1,
         titre: info.titre,
@@ -61,7 +61,6 @@ export default function ClientDashboard({ user, onLogout }) {
 
     const today = new Date();
     today.setHours(0, 0, 0, 0);
-
     list.sort((a, b) => {
       const da = new Date(a.date);
       const db = new Date(b.date);
@@ -71,7 +70,6 @@ export default function ClientDashboard({ user, onLogout }) {
       if (!aExp && bExp) return -1;
       return da - db;
     });
-
     return list;
   };
 
@@ -99,39 +97,26 @@ export default function ClientDashboard({ user, onLogout }) {
   };
 
   const MONTHS = ['Jan','Fév','Mar','Avr','Mai','Jun','Jul','Aoû','Sep','Oct','Nov','Déc'];
-
   const today = new Date();
   today.setHours(0, 0, 0, 0);
 
   return (
     <div className="cd-root">
-
-      {/* TOPBAR */}
       <nav className="cd-topbar">
         <div className="cd-topbar-left">
           <img src={logo} alt="Logo" style={{ height: 38, width: 38, borderRadius: "50%", objectFit: "cover" }} />
-          <span className="cd-brand">
-            PRO ETUDES
-            <span>INGÉNIERIE &amp; COORDINATION</span>
-          </span>
+          <span className="cd-brand">PRO ETUDES<span>INGÉNIERIE &amp; COORDINATION</span></span>
         </div>
         <div className="cd-topbar-right">
           <div className="cd-user-chip">
-            <div className="cd-user-av">
-              {user?.nom?.slice(0, 1).toUpperCase()}
-            </div>
+            <div className="cd-user-av">{user?.nom?.slice(0, 1).toUpperCase()}</div>
             <span className="cd-user-name">{user?.nom}</span>
           </div>
-          <button onClick={onLogout} className="cd-btn-logout">
-            Déconnexion
-          </button>
+          <button onClick={onLogout} className="cd-btn-logout">Déconnexion</button>
         </div>
       </nav>
 
-      {/* PAGE */}
       <div className="cd-page">
-
-        {/* HEADER */}
         <div className="cd-page-header">
           <div>
             <div className="cd-breadcrumb">Tableau de bord › Espace Client</div>
@@ -140,7 +125,6 @@ export default function ClientDashboard({ user, onLogout }) {
           </div>
         </div>
 
-        {/* STATS */}
         <div className="cd-stats">
           <div className="cd-stat-card stat-total">
             <span className="cd-stat-val">{stats.total}</span>
@@ -160,7 +144,6 @@ export default function ClientDashboard({ user, onLogout }) {
           </div>
         </div>
 
-        {/* TABS */}
         <div className="cd-tabs">
           {["projets", "rendez-vous"].map((tab) => (
             <button
@@ -173,7 +156,6 @@ export default function ClientDashboard({ user, onLogout }) {
           ))}
         </div>
 
-        {/* PROJETS TAB */}
         {activeTab === "projets" && (
           <>
             {loading ? (
@@ -204,7 +186,6 @@ export default function ClientDashboard({ user, onLogout }) {
           </>
         )}
 
-        {/* RENDEZ-VOUS TAB */}
         {activeTab === "rendez-vous" && (
           <>
             {rdvs.length === 0 ? (
@@ -233,7 +214,6 @@ export default function ClientDashboard({ user, onLogout }) {
             )}
           </>
         )}
-
       </div>
     </div>
   );

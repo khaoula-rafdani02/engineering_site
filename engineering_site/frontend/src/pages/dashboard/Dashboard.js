@@ -1,6 +1,7 @@
 import "./Dashboard.css";
 import React, { useEffect, useState, useMemo } from "react";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from 'recharts';
+import { apiFetch } from "../../api";
 
 function Dashboard() {
   const [stats, setStats] = useState({
@@ -23,13 +24,13 @@ function Dashboard() {
   useEffect(() => {
     const endpoints = ['clients', 'projets', 'employes', 'messages', 'documents', 'suivis'];
     endpoints.forEach(key => {
-      fetch(`http://localhost:8000/api/${key}`)
+      apiFetch(key)
         .then(res => res.json())
         .then(data => {
           const list = data.data ?? data;
           setStats(prev => ({ ...prev, [key]: list.length }));
           if (key === 'projets') setAllProjets(list);
-          if (key === 'suivis') setSuivis(list.slice(0, 6)); // khdemna b 6 dyal l-activités
+          if (key === 'suivis') setSuivis(list.slice(0, 6));
         })
         .catch(err => console.error(`Error fetching ${key}:`, err));
     });
@@ -47,8 +48,6 @@ function Dashboard() {
   return (
     <div className="dashboard">
       <div className="dash-section-label">Tableau de bord</div>
-
-      {/* STATS CARDS */}
       <div className="dash-stats">
         {[
           { label: "Clients", val: stats.clients, icon: "◎", c: "c1" },
@@ -66,7 +65,6 @@ function Dashboard() {
       </div>
 
       <div className="dash-grid-main">
-        {/* CHART SECTION */}
         <div className="dash-chart-section">
           <div className="dash-table-title">Analyse des Projets par Statut</div>
           <div style={{ width: '100%', height: 300, marginTop: '20px' }}>
@@ -84,7 +82,6 @@ function Dashboard() {
           </div>
         </div>
 
-        {/* TIMELINE ACTIVITY SECTION */}
         <div className="dash-activity-section">
           <div className="dash-table-title">Activités Récentes</div>
           <div className="timeline">

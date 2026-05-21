@@ -18,7 +18,8 @@ function Login({ setUser }) {
       .then((data) => {
         console.log(data);
         if (data.success) {
-          const userWithRole = { ...data.user, role: data.role };
+          localStorage.clear();
+          const userWithRole = { ...data.user, role: data.role, token: data.token };
           setUser(userWithRole);
           localStorage.setItem("user", JSON.stringify(userWithRole));
           if (data.role === "Administrateur") navigate("/dashboard");

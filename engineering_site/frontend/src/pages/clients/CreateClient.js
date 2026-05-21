@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { apiFetch } from "../../api";
 
 function CreateClient() {
   const navigate = useNavigate();
@@ -8,23 +9,14 @@ function CreateClient() {
   const [email, setEmail] = useState("");
   const [telephone, setTelephone] = useState("");
   const [mot_de_passe, setMotDePasse] = useState("");
-  const [date_creation, setDateCreation] = useState(""); // جديد
+  const [date_creation, setDateCreation] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    fetch("http://127.0.0.1:8000/api/clients", {
+    apiFetch("clients", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        nom,
-        email,
-        telephone,
-        mot_de_passe,
-        date_creation  // جديد
-      })
+      body: JSON.stringify({ nom, email, telephone, mot_de_passe, date_creation })
     })
       .then(res => res.json())
       .then(() => {
@@ -102,9 +94,7 @@ function CreateClient() {
                 </div>
 
                 <div className="d-flex gap-2">
-                  <button type="submit" className="btn btn-success">
-                    💾 Ajouter
-                  </button>
+                  <button type="submit" className="btn btn-success">💾 Ajouter</button>
                   <button
                     type="button"
                     className="btn btn-secondary"

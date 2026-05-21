@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./ListSuivi.css";
+import { apiFetch } from "../../api";
 
 export default function ListSuivi() {
   const [suivis, setSuivis] = useState([]);
@@ -15,21 +16,15 @@ export default function ListSuivi() {
       id_employe: user?.id_employe || ""
     });
 
-    fetch(`http://127.0.0.1:8000/api/suivis?${params}`)
+    apiFetch(`suivis?${params}`)
       .then(res => res.json())
-      .then(data => {
-        setSuivis(data);
-        setLoading(false);
-      })
-      .catch(err => {
-        console.error(err);
-        setLoading(false);
-      });
+      .then(data => { setSuivis(data); setLoading(false); })
+      .catch(err => { console.error(err); setLoading(false); });
   }, []);
 
   const handleDelete = (id) => {
     if (window.confirm("Supprimer ce suivi ?")) {
-      fetch(`http://127.0.0.1:8000/api/suivis/${id}`, { method: "DELETE" })
+      apiFetch(`suivis/${id}`, { method: "DELETE" })
         .then(() => setSuivis(suivis.filter(s => s.id !== id)));
     }
   };
@@ -54,22 +49,18 @@ export default function ListSuivi() {
 
   const printPhoto = (src) => {
     const win = window.open("", "_blank");
-    win.document.write(`
-      <html><head><title>Photo</title>
-      <style>body{margin:0;display:flex;align-items:center;justify-content:center;min-height:100vh;}
-      img{max-width:100%;max-height:100vh;}</style></head>
-      <body><img src="${src}" onload="window.print();window.close()"></body></html>
-    `);
+    win.document.write(`<html><head><title>Photo</title><style>body{margin:0;display:flex;align-items:center;justify-content:center;min-height:100vh;}img{max-width:100%;max-height:100vh;}</style></head><body><img src="${src}" onload="window.print();window.close()"></body></html>`);
     win.document.close();
   };
 
+  // ✅ URL corriger - storage au lieu de api/photos
+  const getPhotoUrl = (photo) => `http://127.0.0.1:8000/storage/${photo}`;
+
   const currentSrc = photoModal
-    ? `http://127.0.0.1:8000/api/photos/${photoModal.photos[photoModal.index]}`
+    ? getPhotoUrl(photoModal.photos[photoModal.index])
     : null;
 
-  if (loading) {
-    return <div className="loading">Chargement des suivis...</div>;
-  }
+  if (loading) return <div className="loading">Chargement des suivis...</div>;
 
   return (
     <div className="suivi-container">
@@ -86,37 +77,17 @@ export default function ListSuivi() {
         </div>
       </div>
 
-      <p className="suivi-welcome">
-        Bienvenue — Voici l'ensemble de vos suivis de projets
-      </p>
+      <p className="suivi-welcome">Bienvenue — Voici l'ensemble de vos suivis de projets</p>
 
       <div className="stats-grid">
-        <div className="stat-card stat-card-total">
-          <div className="stat-value">{total}</div>
-          <div className="stat-label">TOTAL SUIVIS</div>
-        </div>
-        <div className="stat-card stat-card-encours">
-          <div className="stat-value">{enCours}</div>
-          <div className="stat-label">EN COURS</div>
-        </div>
-        <div className="stat-card stat-card-termine">
-          <div className="stat-value">{termines}</div>
-          <div className="stat-label">TERMINÉS</div>
-        </div>
-        <div className="stat-card stat-card-suspendu">
-          <div className="stat-value">{suspendus}</div>
-          <div className="stat-label">SUSPENDUS</div>
-        </div>
+        <div className="stat-card stat-card-total"><div className="stat-value">{total}</div><div className="stat-label">TOTAL SUIVIS</div></div>
+        <div className="stat-card stat-card-encours"><div className="stat-value">{enCours}</div><div className="stat-label">EN COURS</div></div>
+        <div className="stat-card stat-card-termine"><div className="stat-value">{termines}</div><div className="stat-label">TERMINÉS</div></div>
+        <div className="stat-card stat-card-suspendu"><div className="stat-value">{suspendus}</div><div className="stat-label">SUSPENDUS</div></div>
       </div>
 
       <div className="search-bar">
-        <input
-          type="text"
-          placeholder="Rechercher par projet, employé, localisation, statut, commentaire..."
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          className="search-input"
-        />
+        <input type="text" placeholder="Rechercher par projet, employé, localisation, statut, commentaire..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} className="search-input" />
       </div>
 
       {filteredSuivis.length === 0 ? (
@@ -126,22 +97,14 @@ export default function ListSuivi() {
           <table className="suivi-table">
             <thead>
               <tr>
-                <th>Projet</th>
-                <th>Employé</th>
-                <th>Localisation</th>
-                <th>Statut</th>
-                <th>Commentaire</th>
-                <th>Photos</th>
-                <th>Date Suivi</th>
-                <th>Actions</th>
+                <th>Projet</th><th>Employé</th><th>Localisation</th><th>Statut</th>
+                <th>Commentaire</th><th>Photos</th><th>Date Suivi</th><th>Actions</th>
               </tr>
             </thead>
             <tbody>
               {filteredSuivis.map((s) => (
                 <tr key={s.id}>
-                  <td className="project-cell">
-                    <div className="project-name">{s.projet?.nom_projet || "-"}</div>
-                  </td>
+                  <td><div className="project-name">{s.projet?.nom_projet || "-"}</div></td>
                   <td>{s.employe?.nom || "-"}</td>
                   <td>{s.localisation || "-"}</td>
                   <td>
@@ -149,23 +112,19 @@ export default function ListSuivi() {
                       {s.statut || "-"}
                     </span>
                   </td>
-                  <td className="comment-cell">{s.commentaire || "-"}</td>
-
-                  {/* ✅ غير الصورة الأولى + badge */}
+                  <td>{s.commentaire || "-"}</td>
                   <td>
                     {s.photos && s.photos.length > 0 ? (
                       <div className="photos-strip">
+                        {/* ✅ URL corriger */}
                         <img
-                          src={`http://127.0.0.1:8000/api/photos/${s.photos[0]}`}
+                          src={getPhotoUrl(s.photos[0])}
                           alt="photo 1"
                           className="photo-thumb"
                           onClick={() => openModal(s.photos, 0)}
                         />
                         {s.photos.length > 1 && (
-                          <span
-                            className="more-photos-badge"
-                            onClick={() => openModal(s.photos, 1)}
-                          >
+                          <span className="more-photos-badge" onClick={() => openModal(s.photos, 1)}>
                             +{s.photos.length - 1}
                           </span>
                         )}
@@ -174,15 +133,10 @@ export default function ListSuivi() {
                       <span className="no-photo">-</span>
                     )}
                   </td>
-
                   <td>{new Date(s.date_suivi).toLocaleDateString()}</td>
                   <td className="actions-cell">
-                    <Link to={`/edit-suivi/${s.id}`} className="action-link edit">
-                      Modifier
-                    </Link>
-                    <button onClick={() => handleDelete(s.id)} className="action-link delete">
-                      Supprimer
-                    </button>
+                    <Link to={`/edit-suivi/${s.id}`} className="action-link edit">Modifier</Link>
+                    <button onClick={() => handleDelete(s.id)} className="action-link delete">Supprimer</button>
                   </td>
                 </tr>
               ))}
@@ -191,37 +145,26 @@ export default function ListSuivi() {
         </div>
       )}
 
-      {/* MODAL PHOTOS */}
       {photoModal && (
         <div className="modal-overlay" onClick={closeModal}>
           <div className="modal-content" onClick={e => e.stopPropagation()}>
-
             <div className="modal-header">
-              <h3>
-                Photos
-                <span className="modal-count">
-                  {photoModal.index + 1} / {photoModal.photos.length}
-                </span>
-              </h3>
+              <h3>Photos <span className="modal-count">{photoModal.index + 1} / {photoModal.photos.length}</span></h3>
               <button className="modal-close" onClick={closeModal}>✕</button>
             </div>
-
             <div className="modal-img-wrap">
-              {photoModal.index > 0 && (
-                <button className="modal-nav modal-nav-prev" onClick={prevPhoto}>‹</button>
-              )}
+              {photoModal.index > 0 && <button className="modal-nav modal-nav-prev" onClick={prevPhoto}>‹</button>}
+              {/* ✅ URL corriger */}
               <img src={currentSrc} alt="Photo agrandie" className="modal-main-img" />
-              {photoModal.index < photoModal.photos.length - 1 && (
-                <button className="modal-nav modal-nav-next" onClick={nextPhoto}>›</button>
-              )}
+              {photoModal.index < photoModal.photos.length - 1 && <button className="modal-nav modal-nav-next" onClick={nextPhoto}>›</button>}
             </div>
-
             {photoModal.photos.length > 1 && (
               <div className="modal-thumbs">
                 {photoModal.photos.map((p, i) => (
+                  // ✅ URL corriger
                   <img
                     key={i}
-                    src={`http://127.0.0.1:8000/api/photos/${p}`}
+                    src={getPhotoUrl(p)}
                     alt={`thumb ${i + 1}`}
                     className={`modal-thumb ${i === photoModal.index ? "active" : ""}`}
                     onClick={() => setPhotoModal(pm => ({ ...pm, index: i }))}
@@ -229,16 +172,10 @@ export default function ListSuivi() {
                 ))}
               </div>
             )}
-
             <div className="modal-actions">
-              <button className="modal-btn-print" onClick={() => printPhoto(currentSrc)}>
-                Imprimer cette photo
-              </button>
-              <button className="modal-btn-close" onClick={closeModal}>
-                ✕ Fermer
-              </button>
+              <button className="modal-btn-print" onClick={() => printPhoto(currentSrc)}>Imprimer cette photo</button>
+              <button className="modal-btn-close" onClick={closeModal}>✕ Fermer</button>
             </div>
-
           </div>
         </div>
       )}

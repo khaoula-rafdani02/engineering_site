@@ -2,6 +2,8 @@ import React, { useEffect, useState, useCallback, useMemo } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./MesProjets.css";
 import logo from "../../assets/logo.png";
+import { apiFetch } from "../../api";
+
 function MesProjets() {
   const [projets, setProjets] = useState([]);
   const [search, setSearch] = useState("");
@@ -29,8 +31,8 @@ function MesProjets() {
     setLoading(true);
     setError(null);
     try {
-      const response = await fetch(
-        `http://127.0.0.1:8000/api/projets?id_employe=${user.id_employe}&role=${user.role}`
+      const response = await apiFetch(
+        `projets?id_employe=${user.id_employe}&role=${user.role}`
       );
       if (!response.ok) throw new Error(`Erreur HTTP: ${response.status}`);
       const data = await response.json();
@@ -81,11 +83,9 @@ function MesProjets() {
 
   return (
     <div className="mp-root">
-
-      {/* TOPBAR */}
       <nav className="mp-topbar">
         <div className="mp-topbar-left">
-          <img  src={logo} className="mp-logo-img" />
+          <img src={logo} className="mp-logo-img" />
           <span className="mp-brand">PRO ETUDES <span>INGÉNIERIE &amp; COORDINATION</span></span>
         </div>
         <div className="mp-topbar-right">
@@ -107,15 +107,10 @@ function MesProjets() {
         </div>
       </nav>
 
-      {/* PAGE */}
       <div className="mp-page">
-
-        {/* HEADER */}
         <div className="mp-page-header">
           <div>
-            <div className="mp-breadcrumb">
-              Tableau de bord › Mes Projets
-            </div>
+            <div className="mp-breadcrumb">Tableau de bord › Mes Projets</div>
             <h1 className="mp-page-title">Mes Projets</h1>
             <p className="mp-page-subtitle">
               Bienvenue, {(() => {
@@ -124,12 +119,9 @@ function MesProjets() {
               })()} — Voici l'ensemble de vos projets assignés
             </p>
           </div>
-          <Link to="/mes-create-projet" className="mp-btn-new">
-            Nouveau Projet
-          </Link>
+          <Link to="/mes-create-projet" className="mp-btn-new">Nouveau Projet</Link>
         </div>
 
-        {/* STATS */}
         <div className="mp-stats">
           <div className="mp-stat-card stat-total">
             <div><span className="mp-stat-val">{stats.total}</span><span className="mp-stat-label">Total Projets</span></div>
@@ -145,7 +137,6 @@ function MesProjets() {
           </div>
         </div>
 
-        {/* TOOLBAR */}
         <div className="mp-toolbar">
           <div className="mp-search-wrap">
             <input
@@ -159,15 +150,12 @@ function MesProjets() {
               <button className="mp-search-clear" onClick={() => setSearch("")}>✕</button>
             )}
           </div>
-          <button className="mp-filter-btn">
-            Filtrer
-          </button>
+          <button className="mp-filter-btn">Filtrer</button>
           <span className="mp-count-tag">
             {projetsFiltres.length} projet{projetsFiltres.length !== 1 ? "s" : ""}
           </span>
         </div>
 
-        {/* ERROR */}
         {error && (
           <div className="mp-error" role="alert">
             <span>⚠️</span>
@@ -176,7 +164,6 @@ function MesProjets() {
           </div>
         )}
 
-        {/* TABLE */}
         {!error && (
           <div className="mp-table-wrap">
             <div className="mp-table-head">
@@ -203,7 +190,6 @@ function MesProjets() {
               ) : (
                 projetsFiltres.map((projet) => (
                   <div key={projet.id_projet} className="mp-table-row">
-
                     <div className="mp-cell-projet">
                       <div>
                         <div className="mp-proj-name">{projet.nom_projet}</div>
@@ -216,30 +202,18 @@ function MesProjets() {
 
                     <div className="mp-cell-client">
                       <div className="mp-client-name">
-                        Client: {
-                          (() => {
-                            const client = projet.client;
-                            
-                            if (client) {
-                              const nom = client.nom;
-                              const email = client.email;
-                              
-                              if (nom && nom.trim() !== "") {
-                                return nom;
-                              }
-                              
-                              if (email && email.trim() !== "") {
-                                return email;
-                              }
-                            }
-                            
-                            return projet.id_client ? `#${projet.id_client}` : "-";
-                          })()
-                        }
+                        Client: {(() => {
+                          const client = projet.client;
+                          if (client) {
+                            const nom = client.nom;
+                            const email = client.email;
+                            if (nom && nom.trim() !== "") return nom;
+                            if (email && email.trim() !== "") return email;
+                          }
+                          return projet.id_client ? `#${projet.id_client}` : "-";
+                        })()}
                       </div>
-                      <div className="mp-localisation">
-                        {projet.localisation || "-"}
-                      </div>
+                      <div className="mp-localisation">{projet.localisation || "-"}</div>
                     </div>
 
                     <div className="mp-cell">
@@ -264,12 +238,10 @@ function MesProjets() {
                     </div>
 
                     <div className="mp-cell-actions">
-                    
                       <Link to={`/edit-projet/${projet.id_projet}`} className="mp-btn-edit">
                         Modifier
                       </Link>
                     </div>
-
                   </div>
                 ))
               )}
@@ -289,7 +261,6 @@ function MesProjets() {
             )}
           </div>
         )}
-
       </div>
     </div>
   );

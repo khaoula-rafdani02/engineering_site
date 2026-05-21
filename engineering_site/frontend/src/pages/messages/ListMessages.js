@@ -1,24 +1,24 @@
 import React, { useEffect, useState } from "react";
 import "./ListMessages.css";
+import { apiFetch } from "../../api";
 
 function ListMessages() {
   const [messages, setMessages] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
-    fetch("http://127.0.0.1:8000/api/messages")
+    apiFetch("messages")
       .then(res => res.json())
       .then(data => setMessages(data))
       .catch(err => console.error(err));
   }, []);
 
-  const filteredMessages = messages.filter(msg => 
-    msg.nom?.toLowerCase().includes(searchTerm.toLowerCase()) || 
+  const filteredMessages = messages.filter(msg =>
+    msg.nom?.toLowerCase().includes(searchTerm.toLowerCase()) ||
     msg.email?.toLowerCase().includes(searchTerm.toLowerCase()) ||
     msg.statut?.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  // Fonction pour donner une couleur au statut
   const getStatutClass = (statut) => {
     switch (statut) {
       case 'Nouveau': return 'ms-badge-new';
@@ -34,16 +34,16 @@ function ListMessages() {
         <div className="ms-page-header">
           <div>
             <div className="ms-breadcrumb">Tableau de bord › Communications</div>
-            <h1 className="ms-page-title"> Gestion des Messages</h1>
+            <h1 className="ms-page-title">Gestion des Messages</h1>
             <p className="ms-page-subtitle">Suivi des demandes clients et messages du site</p>
           </div>
         </div>
 
         <div className="ms-search-wrapper">
-          <input 
-            type="text" 
+          <input
+            type="text"
             className="ms-search-input"
-            placeholder="Rechercher par nom, statut, message..." 
+            placeholder="Rechercher par nom, statut, message..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
@@ -75,14 +75,10 @@ function ListMessages() {
                       {msg.id_client && <div className="ms-client-link">ID Client: {msg.id_client}</div>}
                     </td>
                     <td>
-                      <div className="ms-message-preview" title={msg.message}>
-                        {msg.message}
-                      </div>
+                      <div className="ms-message-preview" title={msg.message}>{msg.message}</div>
                     </td>
                     <td>
-                      <span className={`ms-badge ${getStatutClass(msg.statut)}`}>
-                        {msg.statut}
-                      </span>
+                      <span className={`ms-badge ${getStatutClass(msg.statut)}`}>{msg.statut}</span>
                     </td>
                     <td className="ms-date-cell">
                       {new Date(msg.date_envoi).toLocaleString('fr-FR', {
@@ -96,9 +92,7 @@ function ListMessages() {
             </tbody>
           </table>
         </div>
-        <div className="ms-count-footer">
-           Total : <strong>{filteredMessages.length}</strong> message(s)
-        </div>
+        <div className="ms-count-footer">Total : <strong>{filteredMessages.length}</strong> message(s)</div>
       </div>
     </div>
   );

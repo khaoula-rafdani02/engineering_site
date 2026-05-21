@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { apiFetch } from "../../api";
 
 function EditClient() {
   const { id } = useParams();
@@ -9,16 +10,15 @@ function EditClient() {
   const [email, setEmail] = useState("");
   const [telephone, setTelephone] = useState("");
   const [mot_de_passe, setMotDePasse] = useState("");
-  const [date_creation, setDateCreation] = useState(""); // جديد
+  const [date_creation, setDateCreation] = useState("");
 
   useEffect(() => {
-    fetch(`http://127.0.0.1:8000/api/clients/${id}`)
+    apiFetch(`clients/${id}`)
       .then(res => res.json())
       .then(data => {
         setNom(data.nom);
         setEmail(data.email);
         setTelephone(data.telephone || "");
-        // تحويل التاريخ إلى صيغة input date (YYYY-MM-DD)
         if (data.date_creation) {
           const date = new Date(data.date_creation);
           setDateCreation(date.toISOString().split('T')[0]);
@@ -30,22 +30,11 @@ function EditClient() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const dataToSend = {
-      nom,
-      email,
-      telephone,
-      date_creation  // جديد
-    };
+    const dataToSend = { nom, email, telephone, date_creation };
+    if (mot_de_passe) dataToSend.mot_de_passe = mot_de_passe;
 
-    if (mot_de_passe) {
-      dataToSend.mot_de_passe = mot_de_passe;
-    }
-
-    fetch(`http://127.0.0.1:8000/api/clients/${id}`, {
+    apiFetch(`clients/${id}`, {
       method: "PUT",
-      headers: {
-        "Content-Type": "application/json"
-      },
       body: JSON.stringify(dataToSend)
     })
       .then(() => {
@@ -67,34 +56,17 @@ function EditClient() {
               <form onSubmit={handleSubmit}>
                 <div className="mb-3">
                   <label className="form-label">Nom complet</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    value={nom}
-                    onChange={(e) => setNom(e.target.value)}
-                    required
-                  />
+                  <input type="text" className="form-control" value={nom} onChange={(e) => setNom(e.target.value)} required />
                 </div>
 
                 <div className="mb-3">
                   <label className="form-label">Email</label>
-                  <input
-                    type="email"
-                    className="form-control"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                  />
+                  <input type="email" className="form-control" value={email} onChange={(e) => setEmail(e.target.value)} required />
                 </div>
 
                 <div className="mb-3">
                   <label className="form-label">Téléphone</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    value={telephone}
-                    onChange={(e) => setTelephone(e.target.value)}
-                  />
+                  <input type="text" className="form-control" value={telephone} onChange={(e) => setTelephone(e.target.value)} />
                 </div>
 
                 <div className="mb-3">
@@ -102,36 +74,17 @@ function EditClient() {
                     Nouveau mot de passe
                     <small className="text-muted ms-2">(laisser vide pour garder l'ancien)</small>
                   </label>
-                  <input
-                    type="password"
-                    className="form-control"
-                    placeholder="Nouveau mot de passe"
-                    value={mot_de_passe}
-                    onChange={(e) => setMotDePasse(e.target.value)}
-                  />
+                  <input type="password" className="form-control" placeholder="Nouveau mot de passe" value={mot_de_passe} onChange={(e) => setMotDePasse(e.target.value)} />
                 </div>
 
                 <div className="mb-3">
                   <label className="form-label">Date de création</label>
-                  <input
-                    type="date"
-                    className="form-control"
-                    value={date_creation}
-                    onChange={(e) => setDateCreation(e.target.value)}
-                  />
+                  <input type="date" className="form-control" value={date_creation} onChange={(e) => setDateCreation(e.target.value)} />
                 </div>
 
                 <div className="d-flex gap-2">
-                  <button type="submit" className="btn btn-primary">
-                    💾 Modifier
-                  </button>
-                  <button
-                    type="button"
-                    className="btn btn-secondary"
-                    onClick={() => navigate("/clients")}
-                  >
-                    ❌ Annuler
-                  </button>
+                  <button type="submit" className="btn btn-primary"> Modifier</button>
+                  <button type="button" className="btn btn-secondary" onClick={() => navigate("/clients")}>❌ Annuler</button>
                 </div>
               </form>
             </div>

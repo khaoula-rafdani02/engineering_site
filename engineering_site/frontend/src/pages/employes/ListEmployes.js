@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./ListEmployes.css";
+import { apiFetch } from "../../api";
 
 function ListEmployes() {
   const [employes, setEmployes] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
-    fetch("http://127.0.0.1:8000/api/employes")
+    apiFetch("employes")
       .then((res) => res.json())
       .then((data) => setEmployes(data))
       .catch((err) => console.error(err));
@@ -15,10 +16,8 @@ function ListEmployes() {
 
   const deleteEmploye = (id) => {
     if (window.confirm("⚠️ Supprimer cet employé ?")) {
-      fetch(`http://127.0.0.1:8000/api/employes/${id}`, { method: "DELETE" })
-        .then(() => {
-          setEmployes(employes.filter((e) => e.id_employe !== id));
-        });
+      apiFetch(`employes/${id}`, { method: "DELETE" })
+        .then(() => setEmployes(employes.filter((e) => e.id_employe !== id)));
     }
   };
 
@@ -31,19 +30,15 @@ function ListEmployes() {
   return (
     <div className="ms-root">
       <div className="ms-page">
-        {/* EN-TÊTE */}
         <div className="ms-page-header">
           <div>
             <div className="ms-breadcrumb">Tableau de bord › Employés</div>
-            <h1 className="ms-page-title"> Liste des Employés</h1>
+            <h1 className="ms-page-title">Liste des Employés</h1>
             <p className="ms-page-subtitle">Gérez vos équipes et leurs accès</p>
           </div>
-          <Link to="/create-employe" className="ms-btn-new">
-            + Nouveau Employé
-          </Link>
+          <Link to="/create-employe" className="ms-btn-new">+ Nouveau Employé</Link>
         </div>
 
-        {/* BARRE DE RECHERCHE (STYLE PHOTO) */}
         <div className="ms-search-wrapper">
           <input
             type="text"
@@ -54,7 +49,6 @@ function ListEmployes() {
           />
         </div>
 
-        {/* TABLEAU */}
         <div className="ms-table-wrap">
           <table className="ms-table-element">
             <thead>
@@ -85,15 +79,8 @@ function ListEmployes() {
                     <td className="ms-text-light">{e.date_embauche || "—"}</td>
                     <td>
                       <div className="ms-cell-actions">
-                        <Link to={`/edit-employe/${e.id_employe}`} className="ms-btn-edit">
-                          Modifier
-                        </Link>
-                        <button
-                          className="ms-btn-edit red"
-                          onClick={() => deleteEmploye(e.id_employe)}
-                        >
-                          Supprimer
-                        </button>
+                        <Link to={`/edit-employe/${e.id_employe}`} className="ms-btn-edit">Modifier</Link>
+                        <button className="ms-btn-edit red" onClick={() => deleteEmploye(e.id_employe)}>Supprimer</button>
                       </div>
                     </td>
                   </tr>
@@ -102,9 +89,7 @@ function ListEmployes() {
             </tbody>
           </table>
         </div>
-        <div className="ms-count-footer">
-          Total : {filteredEmployes.length} employé(s)
-        </div>
+        <div className="ms-count-footer">Total : {filteredEmployes.length} employé(s)</div>
       </div>
     </div>
   );

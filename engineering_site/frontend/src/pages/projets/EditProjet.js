@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { apiFetch } from "../../api";
 
 function EditProjet() {
   const { id } = useParams();
   const navigate = useNavigate();
-
-const user = JSON.parse(localStorage.getItem("user"));
+  const user = JSON.parse(localStorage.getItem("user"));
 
   const [nom_projet, setNomProjet] = useState("");
   const [description, setDescription] = useState("");
@@ -17,15 +17,13 @@ const user = JSON.parse(localStorage.getItem("user"));
   const [id_employe, setIdEmploye] = useState("");
   const [statut, setStatut] = useState("");
   const [localisation, setLocalisation] = useState("");
-
-  const [clients, setClients] = useState([]);    // ← جديد
-  const [employes, setEmployes] = useState([]);  // ← جديد
+  const [clients, setClients] = useState([]);
+  const [employes, setEmployes] = useState([]);
 
   useEffect(() => {
-    // جيب données du projet
-    fetch(`http://127.0.0.1:8000/api/projets/${id}`)
-      .then((res) => res.json())
-      .then((data) => {
+    apiFetch(`projets/${id}`)
+      .then(res => res.json())
+      .then(data => {
         setNomProjet(data.nom_projet);
         setDescription(data.description);
         setDateDebut(data.date_debut);
@@ -38,43 +36,27 @@ const user = JSON.parse(localStorage.getItem("user"));
         setLocalisation(data.localisation ?? "");
       });
 
-    // جيب clients و employes
-    fetch("http://127.0.0.1:8000/api/clients")
-      .then((res) => res.json())
-      .then((data) => setClients(data));
-
-    fetch("http://127.0.0.1:8000/api/employes")
-      .then((res) => res.json())
-      .then((data) => setEmployes(data));
+    apiFetch("clients").then(res => res.json()).then(data => setClients(data));
+    apiFetch("employes").then(res => res.json()).then(data => setEmployes(data));
   }, [id]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    fetch(`http://127.0.0.1:8000/api/projets/${id}`, {
+    apiFetch(`projets/${id}`, {
       method: "PUT",
-      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        nom_projet,
-        description,
-        date_debut,
-        date_cloture,
-        maitre_ouvrage,
-        indemnite: parseFloat(indemnite) || 0,
-        id_client,
-        id_employe,
-        statut,
-        localisation,
+        nom_projet, description, date_debut, date_cloture,
+        maitre_ouvrage, indemnite: parseFloat(indemnite) || 0,
+        id_client, id_employe, statut, localisation,
       }),
     })
-      .then((res) => res.json())
-      .then((data) => {
+      .then(res => res.json())
+      .then(() => {
         alert("Projet modifié avec succès");
         navigate(user?.role === "Administrateur" ? "/projets" : "/mes-projets");
-        console.log("USER ROLE:", user?.role);
       })
-      .catch((error) => {
-        console.log(error);
+      .catch(err => {
+        console.log(err);
         alert("Erreur de connexion avec le serveur");
       });
   };
@@ -82,131 +64,62 @@ const user = JSON.parse(localStorage.getItem("user"));
   return (
     <div className="container mt-5">
       <h2>Modifier Projet</h2>
-
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
           <label>Nom Projet</label>
-          <input
-            type="text"
-            className="form-control"
-            value={nom_projet}
-            onChange={(e) => setNomProjet(e.target.value)}
-          />
+          <input type="text" className="form-control" value={nom_projet} onChange={(e) => setNomProjet(e.target.value)} />
         </div>
-
         <div className="mb-3">
           <label>Description</label>
-          <input
-            type="text"
-            className="form-control"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-          />
+          <input type="text" className="form-control" value={description} onChange={(e) => setDescription(e.target.value)} />
         </div>
-
         <div className="mb-3">
           <label>Date Début</label>
-          <input
-            type="date"
-            className="form-control"
-            value={date_debut}
-            min="2000-01-01"
-            max="2100-12-31"
-            onChange={(e) => setDateDebut(e.target.value)}
-          />
+          <input type="date" className="form-control" value={date_debut} min="2000-01-01" max="2100-12-31" onChange={(e) => setDateDebut(e.target.value)} />
         </div>
-
         <div className="mb-3">
           <label>Date Clôture</label>
-          <input
-            type="date"
-            className="form-control"
-            value={date_cloture}
-            min="2000-01-01"
-            max="2100-12-31"
-            onChange={(e) => setDateCloture(e.target.value)}
-          />
+          <input type="date" className="form-control" value={date_cloture} min="2000-01-01" max="2100-12-31" onChange={(e) => setDateCloture(e.target.value)} />
         </div>
-
         <div className="mb-3">
           <label>Maitre Ouvrage</label>
-          <input
-            type="text"
-            className="form-control"
-            value={maitre_ouvrage}
-            onChange={(e) => setMaitreOuvrage(e.target.value)}
-          />
+          <input type="text" className="form-control" value={maitre_ouvrage} onChange={(e) => setMaitreOuvrage(e.target.value)} />
         </div>
-
         <div className="mb-3">
           <label>Indemnité</label>
-          <input
-            type="number"
-            className="form-control"
-            value={indemnite}
-            onChange={(e) => setIndemnite(e.target.value)}
-          />
+          <input type="number" className="form-control" value={indemnite} onChange={(e) => setIndemnite(e.target.value)} />
         </div>
-
-        {/* ← Select Client */}
         <div className="mb-3">
           <label>Client</label>
-          <select
-            className="form-control"
-            value={id_client}
-            onChange={(e) => setIdClient(e.target.value)}
-          >
+          <select className="form-control" value={id_client} onChange={(e) => setIdClient(e.target.value)}>
             <option value="">Choisir Client</option>
             {clients.map((c) => (
-              <option key={c.id_client} value={c.id_client}>
-                {c.nom}
-              </option>
+              <option key={c.id_client} value={c.id_client}>{c.nom}</option>
             ))}
           </select>
         </div>
-
-        {/* ← Select Employé */}
         <div className="mb-3">
           <label>Employé</label>
-          <select
-            className="form-control"
-            value={id_employe}
-            onChange={(e) => setIdEmploye(e.target.value)}
-          >
+          <select className="form-control" value={id_employe} onChange={(e) => setIdEmploye(e.target.value)}>
             <option value="">Choisir Employé</option>
             {employes.map((e) => (
-              <option key={e.id_employe} value={e.id_employe}>
-                {e.nom}
-              </option>
+              <option key={e.id_employe} value={e.id_employe}>{e.nom}</option>
             ))}
           </select>
         </div>
-
         <div className="mb-3">
           <label>Statut</label>
-          <select
-            className="form-control"
-            value={statut}
-            onChange={(e) => setStatut(e.target.value)}
-          >
+          <select className="form-control" value={statut} onChange={(e) => setStatut(e.target.value)}>
             <option value="">Choisir</option>
             <option value="En cours">En cours</option>
             <option value="Terminé">Terminé</option>
             <option value="Suspendu">Suspendu</option>
           </select>
         </div>
-
         <div className="mb-3">
           <label>Localisation</label>
-          <input
-            type="text"
-            className="form-control"
-            value={localisation}
-            placeholder="ex: Marrakech, Rue..."
-            onChange={(e) => setLocalisation(e.target.value)}
-          />
+          <input type="text" className="form-control" value={localisation} placeholder="ex: Marrakech, Rue..." onChange={(e) => setLocalisation(e.target.value)} />
         </div>
-
         <button className="btn btn-success">Modifier Projet</button>
       </form>
     </div>

@@ -8,6 +8,7 @@ export default function Contact() {
   const navigate = useNavigate();
 
   const clientId = localStorage.getItem("client_id");
+  const token = localStorage.getItem("token");
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -18,7 +19,10 @@ export default function Contact() {
     try {
       const res = await fetch("http://localhost:8000/api/messages", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { 
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
+        },
         body: JSON.stringify({ ...form, id_client: clientId }),
       });
 

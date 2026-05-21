@@ -9,63 +9,69 @@ use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\SuiviProjetController;
 
-/* Projets */
+/*
+|--------------------------------------------------------------------------
+| Routes publiques — بلا auth
+|--------------------------------------------------------------------------
+*/
 
-Route::get('/projets',[ProjetController::class,'index']);
-Route::post('/projets',[ProjetController::class,'store']);
-Route::get('/projets/{id}',[ProjetController::class,'show']);
-Route::put('/projets/{id}',[ProjetController::class,'update']);
-Route::delete('/projets/{id}',[ProjetController::class,'destroy']);
-
-
-/* Clients */
-
-Route::apiResource('clients', ClientController::class);
-
-
-/* Employes */
-
-Route::apiResource('employes', EmployeController::class);
-
-
-/* Messages */
-
-
-Route::get('/messages', [MessageController::class, 'index']);
-
-
+Route::post('/login', [AuthController::class, 'login'])->name('login');
+Route::post('/register', [ClientController::class, 'register']);
 Route::post('/messages', [MessageController::class, 'store']);
 
-/* Documents */
+/*
+|--------------------------------------------------------------------------
+| Routes protégées — خاصهم token
+|--------------------------------------------------------------------------
+*/
 
-Route::apiResource('documents', DocumentController::class);
+Route::middleware('auth:sanctum')->group(function () {
 
+    /* Logout */
+    Route::post('/logout', [AuthController::class, 'logout']);
 
-/* Login */
+    /* Projets */
+    Route::get('/projets',        [ProjetController::class, 'index']);
+    Route::post('/projets',       [ProjetController::class, 'store']);
+    Route::get('/projets/{id}',   [ProjetController::class, 'show']);
+    Route::put('/projets/{id}',   [ProjetController::class, 'update']);
+    Route::delete('/projets/{id}',[ProjetController::class, 'destroy']);
 
-Route::post('/login',[AuthController::class,'login']);
+    Route::get('/mes-projets/{id}',        [ProjetController::class, 'mesProjets']);
+    Route::get('/mes-projets-client/{id}', [ProjetController::class, 'mesProjetsClient']);
 
-Route::get('/mes-projets/{id}',[ProjetController::class,'mesProjets']);
+    /* Clients */
+    Route::apiResource('clients', ClientController::class);
 
+    /* Employes */
+    Route::apiResource('employes', EmployeController::class);
 
+    /* Messages */
+    Route::get('/messages', [MessageController::class, 'index']);
 
+    /* Documents */
+    Route::apiResource('documents', DocumentController::class);
 
+    /* Suivis */
+    Route::apiResource('suivis', SuiviProjetController::class);
+    Route::get('/suivi_projet/projet/{id_projet}', [SuiviProjetController::class, 'getByProjet']);
+    Route::get('/suivi_projet/{id}/progression',   [SuiviProjetController::class, 'getProgression']);
 
-Route::apiResource('suivis', SuiviProjetController::class);
-// Routes pour les suivis 
-Route::get('/suivi_projet/projet/{id_projet}', [SuiviProjetController::class, 'getByProjet']);
-Route::get('/suivi_projet/{id}/progression', [SuiviProjetController::class, 'getProgression']);
-    
+    /* Photos */
+    Route::get('/photos/{folder}/{filename}', function ($folder, $filename) {
+        if (str_contains($folder, '..') || str_contains($filename, '..') ||
+            str_contains($folder, '/')  || str_contains($filename, '/') ||
+            str_contains($folder, '\\') || str_contains($filename, '\\')) {
+            abort(403);
+        }
 
+        $fullPath = storage_path('app/public/' . $folder . '/' . $filename);
 
-Route::get('/mes-projets-client/{id}', [ProjetController::class, 'mesProjetsClient']);
+        if (!file_exists($fullPath)) {
+            abort(404);
+        }
 
-Route::get('/photos/{folder}/{filename}', function($folder, $filename) {
-    $fullPath = storage_path('app/public/' . $folder . '/' . $filename);
-    if (!file_exists($fullPath)) {
-        abort(404);
-    }
-    return response()->file($fullPath);
+        return response()->file($fullPath);
+    });
+
 });
-
-Route::post('/register', [ClientController::class, 'register']);
